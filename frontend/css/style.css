@@ -1,0 +1,109 @@
+/* Base App Layout */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #1e1e2e;
+    color: #cdd6f4;
+}
+
+#app-container {
+    display: flex;
+    height: 100vh;
+}
+
+#sidebar {
+    width: 250px;
+    background-color: #181825;
+    padding: 20px;
+    border-right: 2px solid #313244;
+}
+
+#visualizer-canvas {
+    flex-grow: 1;
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Reusable Basic Node Design */
+.visual-node {
+    width: 55px;
+    height: 55px;
+    background-color: #dce5f1;
+    color: #030303;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+/* Structure Layout Styles */
+.linked-list-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.node-arrow {
+    font-size: 1.5rem;
+    color: #f38ba8;
+}
+
+.queue-container {
+    display: flex;
+    border-top: 3px solid #a6e3a1;
+    border-bottom: 3px solid #a6e3a1;
+    padding: 10px 0;
+    gap: 5px;
+}
+
+.queue-item {
+    border-radius: 4px;
+    /* Queues look better squared off */
+}
+
+.queue-front::after {
+    content: " ◄ Front";
+    position: absolute;
+    top: -25px;
+    font-size: 0.8rem;
+    color: #a6e3a1;
+}
+
+.queue-rear::after {
+    content: " ◄ Rear";
+    position: absolute;
+    bottom: -25px;
+    font-size: 0.8rem;
+    color: #f38ba8;
+}
+
+/* Basic Flat Array Array View for the Heap Map */
+.heap-grid {
+    display: flex;
+    gap: 15px;
+    background: #313244;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.heap-node {
+    border-radius: 8px;
+}
+
+.node-index {
+    position: absolute;
+    bottom: -20px;
+    font-size: 0.75rem;
+    color: #a6adc8;
+}
+
+.empty-text {
+    color: #6c7086;
+    font-style: italic;
+}
