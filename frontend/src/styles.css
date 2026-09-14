@@ -26,6 +26,47 @@ body {
     align-items: center;
 }
 
+.btn-primary {
+    /* Layout & Sizing */
+    display: inline-block;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: 100;
+    line-height: 1;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+
+    /* Look & Feel */
+    color: #ffffff;
+    background-color: #181825;
+    /* Modern Blue */
+    border: 1px solid #ffffff;
+    border-radius: 6px;
+
+    /* Smooth Transitions */
+    transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+/* Hover State (Mouse over) */
+.btn-primary:hover {
+    background-color: #96a2be;
+    /* Slightly darker blue */
+}
+
+/* Active State (Button is clicked) */
+.btn-primary:active {
+    transform: scale(0.98);
+    /* Subtle push-down effect */
+}
+
+/* Focus State (Keyboard accessibility) */
+.btn-primary:focus-visible {
+    outline: 3px solid #93c5fd;
+    /* Soft blue glow halo */
+    outline-offset: 2px;
+}
+
 /* Reusable Basic Node Design */
 .visual-node {
     width: 55px;
