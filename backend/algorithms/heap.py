@@ -1,5 +1,3 @@
-# backend/algorithms/heap.py
-
 from typing import List, Dict, Any, Tuple
 
 
@@ -10,7 +8,6 @@ class HeapVisualizer:
     """
 
     def __init__(self, initial_data: List[int] = None):
-        # Maintain a clean internal state copy
         self.data: List[int] = initial_data[:] if initial_data else []
         self.events: List[Dict[str, Any]] = []
 
@@ -47,7 +44,6 @@ class HeapVisualizer:
                 f"Comparing element {self.data[index]} (index {index}) with parent {self.data[parent]} (index {parent})"
             )
 
-            # Max-Heap condition check
             if self.data[index] > self.data[parent]:
                 self._swap(index, parent, context="Sifting up")
                 index = parent
@@ -71,27 +67,27 @@ class HeapVisualizer:
             left = 2 * index + 1
             right = 2 * index + 2
 
-            # Check left child
+            # Evaluate left child
             if left < heap_size:
                 self._log(
                     "COMPARE",
-                    [largest, left],
-                    f"Comparing current node {self.data[largest]} (index {largest}) with left child {self.data[left]} (index {left})"
+                    [index, left],
+                    f"Comparing node {self.data[index]} (index {index}) with left child {self.data[left]} (index {left})"
                 )
                 if self.data[left] > self.data[largest]:
                     largest = left
 
-            # Check right child
+            # Evaluate right child against current largest candidate
             if right < heap_size:
                 self._log(
                     "COMPARE",
                     [largest, right],
-                    f"Comparing largest node {self.data[largest]} (index {largest}) with right child {self.data[right]} (index {right})"
+                    f"Comparing current max {self.data[largest]} (index {largest}) with right child {self.data[right]} (index {right})"
                 )
                 if self.data[right] > self.data[largest]:
                     largest = right
 
-            # If a child is larger than the current parent, swap and continue
+            # If a child is larger, swap and continue sifting down
             if largest != index:
                 self._swap(index, largest, context="Sifting down")
                 index = largest
@@ -111,14 +107,13 @@ class HeapVisualizer:
     def insert(self, value: int) -> Tuple[List[Dict[str, Any]], List[int]]:
         """Appends a new value to the bottom of the heap and sifts it up."""
         self.events.clear()
-        
         self.data.append(value)
         new_index = len(self.data) - 1
         
         self._log(
             "INSERT",
             [new_index],
-            f"Inserted new node {value} at index {new_index} (bottom of tree)"
+            f"Inserted new node {value} at index {new_index}"
         )
         
         self._sift_up(new_index)
@@ -131,8 +126,8 @@ class HeapVisualizer:
         if not self.data:
             return [], []
 
-        last_index = len(self.data) - 1
         removed_val = self.data[0]
+        last_index = len(self.data) - 1
 
         if len(self.data) == 1:
             self._log("DELETE", [0], f"Removed last remaining root element ({removed_val})")
@@ -145,7 +140,6 @@ class HeapVisualizer:
             f"Swapping root {removed_val} with last element {self.data[last_index]} for extraction"
         )
         
-        # Swap root with last element and pop it
         self.data[0], self.data[last_index] = self.data[last_index], self.data[0]
         self.data.pop()
 
@@ -158,34 +152,31 @@ class HeapVisualizer:
         self._sift_down(0)
         return self.events, self.data[:]
 
-    def heapsort(self) -> Tuple[List[Dict[str, Any]], List[int]]:
-        """Transforms array into Max-Heap and performs full Heapsort."""
+    def build_heap(self, raw_data: List[int]) -> Tuple[List[Dict[str, Any]], List[int]]:
+        """Transforms an arbitrary array into a valid Max-Heap in-place."""
         self.events.clear()
+        self.data = raw_data[:]
         n = len(self.data)
 
-        if n <= 1:
-            return self.events, self.data[:]
+        self._log(
+            "INFO",
+            [],
+            f"Starting Build-Max-Heap on array of size {n}"
+        )
 
-        # Step 1: Build Max-Heap (bottom-up)
-        self._log("INFO", [], "Phase 1: Building Max-Heap from unstructured array")
-        for i in range(n // 2 - 1, -1, -1):
-            self._sift_down(i, n)
-
-        # Step 2: Extract elements one by one
-        self._log("INFO", [], "Phase 2: Extracting maximum element and sorting array")
-        for i in range(n - 1, 0, -1):
-            # Swap current root (max) to the sorted partition at index i
-            self._swap(0, i, context="Extracting Max to sorted array boundary")
-            
+        # Start from the last non-leaf parent node down to root index 0
+        start_idx = (n // 2) - 1
+        for i in range(start_idx, -1, -1):
             self._log(
-                "MARK_SORTED",
+                "INFO",
                 [i],
-                f"Element {self.data[i]} placed in final sorted position"
+                f"Heapifying subtree rooted at index {i} (value: {self.data[i]})"
             )
-            
-            # Restore heap property on remaining unsorted partition
-            self._sift_down(0, i)
+            self._sift_down(i, heap_size=n)
 
-        # Mark index 0 as sorted
-        self._log("MARK_SORTED", [0], f"Element {self.data[0]} placed in final sorted position")
+        self._log(
+            "INFO",
+            [],
+            "Build-Max-Heap complete! Array now satisfies the Max-Heap property."
+        )
         return self.events, self.data[:]

@@ -51,15 +51,15 @@ export class PlaybackService {
 
   stepNext() {
     if (this.currentStep() < this.events().length - 1) {
-      this.currentStep.update(s => s + 1);
+      this.currentStep.update((s: number) => s + 1);
     } else {
       this.pause();
     }
   }
-
+  
   stepPrev() {
     if (this.currentStep() > 0) {
-      this.currentStep.update(s => s - 1);
+      this.currentStep.update((s: number) => s - 1);
     }
   }
 }

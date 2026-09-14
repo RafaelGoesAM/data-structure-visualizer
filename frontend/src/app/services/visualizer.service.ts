@@ -15,11 +15,10 @@ export class VisualizerService {
   private readonly apiUrl = 'http://localhost:8000/api/heap';
 
   /**
-   * Sends an unorganized or semi-organized array to perform Heapsort with event logging.
+   * Transforms an unsorted array into a valid Max-Heap structure (Build-Max-Heap).
    */
-  executeHeapsort(data: number[]): Observable<HeapResponse> {
-    const payload: ArrayInputRequest = { data };
-    return this.http.post<HeapResponse>(`${this.apiUrl}/heapsort`, payload);
+  buildHeap(data: number[]): Observable<HeapResponse> {
+    return this.http.post<HeapResponse>(`${this.apiUrl}/build`, { data });
   }
 
   /**

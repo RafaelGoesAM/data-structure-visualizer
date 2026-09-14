@@ -1,0 +1,107 @@
+.controls-panel {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 16px;
+    max-width: 600px;
+    margin: 0 auto 20px auto;
+  }
+  
+  .section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  h3 {
+    margin: 0 0 8px 0;
+    font-size: 16px;
+    color: #1e293b;
+  }
+  
+  .form-row {
+    display: flex;
+    gap: 8px;
+  }
+  
+  input[type="number"],
+  input[type="text"] {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+  }
+  
+  button {
+    padding: 8px 16px;
+    background: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s ease;
+  }
+  
+  button:hover:not(:disabled) {
+    background: #2563eb;
+  }
+  
+  button:disabled {
+    background: #94a3b8;
+    cursor: not-allowed;
+  }
+  
+  button.danger-btn {
+    background: #ef4444;
+  }
+  
+  button.danger-btn:hover:not(:disabled) {
+    background: #dc2626;
+  }
+  
+  .playback-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+  }
+  
+  .scrubber-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    color: #475569;
+  }
+  
+  .event-banner {
+    margin-top: 8px;
+    padding: 8px 12px;
+    background: #ffffff;
+    border-left: 4px solid #3b82f6;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .badge {
+    font-size: 11px;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: #cbd5e1;
+    color: #0f172a;
+    text-transform: uppercase;
+  }
+  
+  .badge.swap { background: #fde047; }
+  .badge.compare { background: #93c5fd; }
+  .badge.insert { background: #86efac; }
+  .badge.delete { background: #fca5a5; }
+  
+  hr {
+    border: 0;
+    border-top: 1px solid #e2e8f0;
+    margin: 16px 0;
+  }

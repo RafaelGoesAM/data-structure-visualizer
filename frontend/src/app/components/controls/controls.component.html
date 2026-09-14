@@ -1,0 +1,87 @@
+<div class="controls-panel">
+    <!-- Heap Manipulation Operations -->
+    <div class="section operations">
+      <h3>Heap Operations</h3>
+      <div class="form-row">
+        <input 
+          type="number" 
+          [(ngModel)]="insertValue" 
+          placeholder="Node value"
+          [disabled]="isLoading || playback.isPlaying()" 
+        />
+        <button 
+          (click)="onInsert()" 
+          [disabled]="insertValue === null || isLoading || playback.isPlaying()">
+          Insert Node
+        </button>
+  
+        <button 
+          (click)="onDeleteRoot()" 
+          class="danger-btn"
+          [disabled]="playback.currentTree().length === 0 || isLoading || playback.isPlaying()">
+          Delete Root (Extract Max)
+        </button>
+      </div>
+  
+      <div class="form-row">
+        <input 
+          type="text" 
+          [(ngModel)]="rawArrayInput" 
+          placeholder="Comma-separated numbers (e.g. 10, 5, 20)"
+          [disabled]="isLoading || playback.isPlaying()" 
+        />
+        <button (click)="onBuildHeap()" [disabled]="isLoading || playback.isPlaying()">
+            Build Max-Heap
+          </button>
+      </div>
+    </div>
+  
+    <hr />
+  
+    <!-- Execution Playback Controls -->
+    <div class="section playback">
+      <h3>Trace Playback</h3>
+      
+      <div class="playback-buttons">
+        <button (click)="playback.stepPrev()" [disabled]="playback.currentStep() === 0">
+          ⏮ Prev
+        </button>
+  
+        <button *ngIf="!playback.isPlaying()" (click)="playback.play()" [disabled]="playback.events().length === 0">
+          ▶ Play
+        </button>
+  
+        <button *ngIf="playback.isPlaying()" (click)="playback.pause()">
+          ⏸ Pause
+        </button>
+  
+        <button 
+          (click)="playback.stepNext()" 
+          [disabled]="playback.events().length === 0 || playback.currentStep() >= playback.events().length - 1">
+          Next ⏭
+        </button>
+      </div>
+  
+      <div class="scrubber-row">
+        <span>Step: {{ playback.currentStep() + 1 }} / {{ playback.events().length || 1 }}</span>
+        <label>
+          Speed:
+          <input 
+            type="range" 
+            min="100" 
+            max="1500" 
+            step="100" 
+            [value]="playback.speed()" 
+            (input)="onSpeedChange($event)" 
+          />
+          {{ playback.speed() }}ms
+        </label>
+      </div>
+  
+      <!-- Active Step Event Description -->
+      <div class="event-banner" *ngIf="playback.activeEvent() as evt">
+        <span class="badge" [ngClass]="evt.type.toLowerCase()">{{ evt.type }}</span>
+        <span class="description">{{ evt.description }}</span>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,31 @@
+<div class="bar-chart-container">
+    <div class="bars-wrapper" *ngIf="items().length > 0; else emptyState">
+      <div 
+        *ngFor="let item of items()" 
+        class="bar-column">
+        
+        <!-- Value Label above the bar -->
+        <span class="value-label" [class.highlighted]="item.isHighlighted">
+          {{ item.value }}
+        </span>
+  
+        <!-- Bar Element -->
+        <div 
+          class="bar" 
+          [style.height.%]="item.heightPercentage"
+          [class.highlighted]="item.isHighlighted">
+        </div>
+  
+        <!-- Array Index Subscript below -->
+        <span class="index-label">
+          [{{ item.index }}]
+        </span>
+      </div>
+    </div>
+  
+    <ng-template #emptyState>
+      <div class="empty-message">
+        Array is currently empty. Insert nodes or run Heapsort to populate.
+      </div>
+    </ng-template>
+  </div>
